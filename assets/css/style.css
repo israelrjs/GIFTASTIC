@@ -1,3 +1,42 @@
 h1{
-    color: red
+    color: red;
+    text-align: center;
+    font-family: 'Black Ops One', cursive;
+    font-size: 70px;
+    animation: animate 1s infinite linear;
+}
+@keyframes animate
+{
+    0%
+    {
+        color: yellow;
+        text-shadow: none;
+    }
+}
+.item{
+    float: right;
+    margin: 31px;
+
+}
+.rating{
+    color: red;
+}
+#buttons{
+    margin-left: 15%;
+}
+#emotions{
+    margin-left: 80px;
+    margin-bottom: 20px;
+}
+#textbox{
+    margin-left: 36%;
+}
+#add-emotion{
+    background-color: red;
+    width: 40%;
+   margin-top: 20px
+}
+p{
+    text-align: center;
+    font-family: 'Julius Sans One', sans-serif;
 }

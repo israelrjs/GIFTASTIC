@@ -11,6 +11,7 @@ function renderButtons(){
     for (i = 0; i < topics.length; i++){
     var butt = $("<button id='emotions'>" + topics[i] + "</button>");
     $('#emotions').attr('data-emotion');
+    butt.addClass("printemotions")
     $("#buttons").append(butt);
     }
 
@@ -23,12 +24,13 @@ $("#add-emotion").on("click", function(event){
     topics.push(emotion);
     renderButtons();
     create();
+    $("#emotion").val("");
 
 });
 
 
 function create(){
-$("button").click(function(){
+$(".printemotions").click(function(){
 $("#gifs").empty()
    var emo = $(this).text();
    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=ZDXQ0E5M0xhfVPljJctvqGu8cGV0L1ku&q="
@@ -51,11 +53,28 @@ console.log(queryURL);
 
             var r = $("<p>").text("Rating: " + rating);
 
+            var clickMe = $("<p>").text("Click ME!");
+
+            r.addClass("rating");
+
             var emotionImage = $("<img>");
 
-            emotionImage.attr("src", results[i].images.fixed_height.url);
+            var imageAnimated = results[i].images.fixed_height.url
+
+            var imageStill = results[i].images.fixed_height_still.url
+
+            emotionImage.attr("src", imageStill );
+
+            emotionImage.attr("data-still",imageStill);
+
+            emotionImage.attr("data-animate",imageAnimated);
+
+            emotionImage.attr("data-state","still");
+
+            emotionImage.addClass("emoImages");
 
             gifDiv.append(r);
+            gifDiv.append(clickMe);
             gifDiv.append(emotionImage);
 
             $("#gifs").append(gifDiv);
@@ -73,3 +92,15 @@ console.log(queryURL);
 })
 
 }
+$(document).on("click", ".emoImages", function() {
+    
+    var state = $(this).attr("data-state");
+    
+    if (state === "still") {
+      $(this).attr("src", $(this).attr("data-animate"));
+      $(this).attr("data-state", "animate");
+    } else {
+      $(this).attr("src", $(this).attr("data-still"));
+      $(this).attr("data-state", "still");
+    }
+})
